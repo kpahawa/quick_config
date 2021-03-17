@@ -1,6 +1,5 @@
 import os
 from typing import Dict, AnyStr, Union, Any, List
-from itertools import chain
 import logging
 from qc.utils.module_loader import load_env_var_by_file
 
