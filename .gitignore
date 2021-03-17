@@ -6,3 +6,4 @@ bin/
 *env/
 *.log
 .idea/
+.pypirc

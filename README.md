@@ -1,4 +1,4 @@
- #QuickConfig
+# QuickConfig
 <hr>
 
 ## Description

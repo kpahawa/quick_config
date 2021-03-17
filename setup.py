@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="qc",
-    version="0.1.0",
+    version="0.2.0",
     author="Karan Pahawa",
-    # author_email="kpahawa@gmail.com",
+    author_email="kpahawa@gmail.com",
     description="A thin and smart config provider for python apps",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",  # TODO
+    url="https://github.com/kpahawa/quick_config",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
