@@ -12,7 +12,9 @@ in your application!
 * Builds modular configs which overwrite a base config based on the config required
   for the application run time environment. Ex: the `base` config will be overwritten
   by the `development` config if the app is running in the `local` or `development` 
-  runtime environment. 
+  runtime environment.
+* Has a built-in API for queryable environment flags like `config.is_dev()` or `config.is_prod()`
+  for environment specific code paths
 * Creates a simple logger with a console and file handler at application run time 
   which can be used anywhere in the application after importing the `quick_config` config.
 * Creates callable methods on the globally loaded `config` object which mirror the 
@@ -21,7 +23,10 @@ in your application!
    * Allows for indexable accessors to configs which are collections. I.e., lists, tuples 
   or maps/dictionaries
 
-
+### Installation
+```shell
+$> pip install quick_config
+```
 
 ### Design
 The quick config provider relies on a standard structure for an application's 
@@ -45,6 +50,7 @@ tuple, or map).
    ENV_VARS = {
        "some_api_key": os.environ.get('my_api_key'),
         "db_name": "my_default_db",
+        "db_driver": "inmemory_sqlite",
         "important_array": ['a', 'b', 'c', 'd']
    }
    ```
@@ -54,6 +60,7 @@ tuple, or map).
    
    ENV_VARS = {
         "db_name": os.environ.get("production_db"),   # overwrites base.py
+        "db_driver": "mysql",
         "important_array": [1, 2, 3, 4]  # overwrites base.py
    }
    ```
@@ -64,7 +71,7 @@ tuple, or map).
    }
    ```
    - Note the use of `ENV_VARS` in each environment file. That is required
-2. Install the qc config `pip install qc`
+2. Install the `quick_config` package `pip install quick_config`
 3. Use the environment vars in your application directly:
 ```python
 # in my_app/my_module/file.py
@@ -78,6 +85,9 @@ class MyModule:
         # depending on environment, this will change
         self.important_index_value = config.important_array(0)
 
-global_db_name = config.db_name()
+db_connection_info = {
+    "db_name": config.db_name(),
+    "driver": config.driver(),
+}
 
 ```

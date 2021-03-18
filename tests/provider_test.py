@@ -2,7 +2,7 @@ import pytest
 import os
 
 
-class TestEnv:
+class TestProvider:
     _cfg = None
 
     @classmethod
@@ -10,14 +10,14 @@ class TestEnv:
         os.environ.setdefault('environment', 'test')
         os.environ.setdefault('CONFIG_DIR', 'test_utils/simple_configs')
 
-        from quick_config import config
-        cls._cfg = config
+        from quick_config import load_config
+        cls._cfg = load_config()
 
     @classmethod
     def teardown_class(cls):
         os.environ.setdefault('environment', None)
-
-    # Now all the tests below will use the fixtures from the setup class established up
+        from quick_config import clear_config
+        clear_config()
 
     def test_basic_env_get(self):
         assert self._cfg.environment() == 'test'

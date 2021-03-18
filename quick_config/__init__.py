@@ -9,12 +9,18 @@ _env_key = 'CONFIG_DIR'
 
 __all__ = [
     'config',
-    'load_default_config',
+    'load_config',
     'setup_config_with_path',
+    'clear_config',
 ]
 
 
-def load_default_config():
+def clear_config():
+    global config
+    config = None
+
+
+def load_config():
     wd = os.getcwd()
 
     conf_dir = os.environ.get(_env_key)
@@ -39,5 +45,5 @@ def setup_config_with_path(path: str):
 
 if __name__ != '__main__':
     if config is None:
-        config = load_default_config()
+        config = load_config()
 

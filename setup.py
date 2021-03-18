@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="quick_config",
-    version="0.2.3",
+    version="0.2.4",
     author="Karan Pahawa",
     author_email="kpahawa@gmail.com",
     description="A thin and smart config provider for python apps",

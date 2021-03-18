@@ -2,19 +2,11 @@ import os
 from typing import Dict, AnyStr, Union, Any, List
 import logging
 from quick_config.utils.module_loader import load_env_var_by_file
-
-# aliases for different run time environments
-_DEVELOPMENT = ["development", "dev", "local"]
-_STAGING = ["staging", "stg"]
-_TESTING = ["test", "testing"]
-_PRODUCTION = ["production", "prod"]
-
-_environment_key = 'environment'
-_base_log_fmt = '%(asctime)s - [%(filename)s:%(lineno)s - %(funcName)s] - %(levelname)s: %(message)s'
+from quick_config.constants import ENV_KEY, TEST_ALIASES, STG_ALIASES, PROD_ALIASES, DEV_ALIASES, BASE_LOG_FMT
 
 
 class _Config:
-    def __init__(self, env_path, environment_key=_environment_key, log_fmt=_base_log_fmt):
+    def __init__(self, env_path, environment_key=ENV_KEY, log_fmt=BASE_LOG_FMT):
         self._configs = {}
         self._current_env = None
         self.BASE_VARS: Dict = {}
@@ -61,16 +53,16 @@ class _Config:
         self.logger.addHandler(console_handler)
 
     def is_dev(self) -> bool:
-        return self._current_env.lower() in _DEVELOPMENT
+        return self._current_env.lower() in DEV_ALIASES
 
     def is_prod(self) -> bool:
-        return self._current_env.lower() in _PRODUCTION
+        return self._current_env.lower() in PROD_ALIASES
 
     def is_staging(self) -> bool:
-        return self._current_env.lower() in _STAGING
+        return self._current_env.lower() in STG_ALIASES
 
     def is_testing(self) -> bool:
-        return self._current_env.lower() in _TESTING
+        return self._current_env.lower() in TEST_ALIASES
 
     def get_logger(self, name=None, log_format: str = None) -> logging.Logger:
         """
@@ -113,19 +105,19 @@ class _Config:
                 continue
 
             module_name = filename.split('.')[0]
-            if module_name not in ['base'] + _DEVELOPMENT + _STAGING + _PRODUCTION + _TESTING:
+            if module_name not in ['base'] + DEV_ALIASES + STG_ALIASES + PROD_ALIASES + TEST_ALIASES:
                 continue
 
             got_vars = load_env_var_by_file(os.path.join(self.env_path, filename))
             if module_name == 'base':
                 self.BASE_VARS.update(got_vars)
-            elif module_name in _DEVELOPMENT:
+            elif module_name in DEV_ALIASES:
                 self.DEV_VARS.update(got_vars)
-            elif module_name in _STAGING:
+            elif module_name in STG_ALIASES:
                 self.STAGING_VARS.update(got_vars)
-            elif module_name in _PRODUCTION:
+            elif module_name in PROD_ALIASES:
                 self.PROD_VARS.update(got_vars)
-            elif module_name in _TESTING:
+            elif module_name in TEST_ALIASES:
                 self.TEST_VARS.update(got_vars)
 
     def _build_env_configs(self):
