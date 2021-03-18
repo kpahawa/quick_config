@@ -50,7 +50,7 @@ that and populate the configs available to the entire application as methods.
 3. Use the environment vars in your application directly:
 ```python
 # in my_app/my_module/file.py
-from qc import config
+from quick_config import config
 
 class MyModule:    
     def __init__(self):
