@@ -4,16 +4,34 @@
 ## Description
 QuickConfig is a super lightweight dynamic config provider for python applications. 
 The config provider uses a runtime config that can be imported to any part of your 
-application. The provider allows you to use runtime environment variables and configs 
-anywhere in your application via a simple import.
+application. `quick_config` parses and loads your environment configs only once 
+based on the runtime environment, and the built configs can be imported anywhere 
+in your application!
+
+### Features
+* Builds modular configs which overwrite a base config based on the config required
+  for the application run time environment. Ex: the `base` config will be overwritten
+  by the `development` config if the app is running in the `local` or `development` 
+  runtime environment. 
+* Creates a simple logger with a console and file handler at application run time 
+  which can be used anywhere in the application after importing the `quick_config` config.
+* Creates callable methods on the globally loaded `config` object which mirror the 
+  names of the configs allowing engineers to call the methods in the app for their values
+  instead of doing config lookups 
+   * Allows for indexable accessors to configs which are collections. I.e., lists, tuples 
+  or maps/dictionaries
+
+
 
 ### Design
 The quick config provider relies on a standard structure for an application's 
-configurations. All configurations must be provided in a standard `config` directory. 
+configurations. All configurations must be provided in a `config` directory. 
 Configs in the `config` directory must follow the standard deployment configuration
 names like `staging.py` or `test.py` or `production.py`. Once the runtime environment
-is set via an environment variable `environment`, the config provider will read
-that and populate the configs available to the entire application as methods.
+is set via an environment variable called `environment`, the config provider will read
+that and populate the configs available to the entire application as callable methods
+which can also be indexed if the provided congig is a collection (list, 
+tuple, or map).
 
 ### Usage
 1. Create an application like a Django/Flask Application which has runtime configs which may
