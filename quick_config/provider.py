@@ -1,7 +1,7 @@
 import os
 from typing import Dict, AnyStr, Union, Any, List
 import logging
-from qc.utils.module_loader import load_env_var_by_file
+from quick_config.utils.module_loader import load_env_var_by_file
 
 # aliases for different run time environments
 _DEVELOPMENT = ["development", "dev", "local"]

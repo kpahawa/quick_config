@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="qc",
+    name="quick_config",
     version="0.2.0",
     author="Karan Pahawa",
     author_email="kpahawa@gmail.com",

@@ -10,7 +10,7 @@ class TestEnv:
         os.environ.setdefault('environment', 'test')
         os.environ.setdefault('CONFIG_DIR', 'test_utils/simple_configs')
 
-        from qc import config
+        from quick_config import config
         cls._cfg = config
 
     @classmethod
