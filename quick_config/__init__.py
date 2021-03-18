@@ -1,6 +1,6 @@
 import os
-from qc.provider_wrapper import load_config_from_path
-from qc.validator import validate_config_dir
+from quick_config.provider_wrapper import load_config_from_path
+from quick_config.validator import validate_config_dir
 
 
 config = None
